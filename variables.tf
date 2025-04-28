@@ -71,3 +71,48 @@ variable "argocd_create_ingress" {
   type        = bool
   default     = true
 }
+
+# ArgoCD RBAC
+variable "rbac_policy_csv" {
+  description = "Configuração RBAC do ArgoCD em formato CSV"
+  type        = string
+  default     = <<-EOF
+    # Permissão admin padrão
+    p, role:admin, *, *, *, allow
+
+    # Criar papel de apenas-leitura
+    p, role:readonly, applications, get, */*, allow
+    p, role:readonly, clusters, get, *, allow
+    p, role:readonly, repositories, get, *, allow
+    p, role:readonly, projects, get, *, allow
+
+    # Criar papel de desenvolvedor
+    p, role:developer, applications, create, */*, allow
+    p, role:developer, applications, update, */*, allow
+    p, role:developer, applications, get, */*, allow
+
+    # Atribuir papéis aos usuários
+    g, joao, role:developer
+    g, maria, role:readonly
+
+    # Atribuir papel de administrador a usuários específicos
+    g, admin, role:admin
+  EOF
+}
+
+variable "rbac_policy_default" {
+  description = "Política padrão para novos usuários"
+  type        = string
+  default     = "role:readonly"
+}
+
+# ArgoCD Repositories
+variable "repositories" {
+  description = "Lista de repositórios Git para o ArgoCD"
+  type = list(object({
+    url  = string
+    type = string
+    name = string
+  }))
+  default = []
+}

@@ -42,4 +42,11 @@ module "argocd" {
   enable_https             = var.argocd_enable_https
   create_ingress           = var.argocd_create_ingress
   cert_manager_environment = var.cert_manager_letsencrypt_server
+
+  # RBAC
+  rbac_policy_csv     = var.rbac_policy_csv
+  rbac_policy_default = var.rbac_policy_default
+
+  # Repositories
+  repositories = var.repositories
 }

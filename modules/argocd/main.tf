@@ -77,14 +77,13 @@ resource "kubernetes_config_map" "argocd_cm" {
   }
 
   data = {
-    "repositories" = <<-EOF
-      - url: https://github.com/exemplo/repositorio.git
-        type: git
-        name: exemplo-repo
-    EOF
+    "repositories"   = yamlencode(var.repositories)
+    "policy.csv"     = var.rbac_policy_csv
+    "policy.default" = var.rbac_policy_default
   }
 
   depends_on = [
     helm_release.argocd
   ]
 }
+
