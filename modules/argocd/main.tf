@@ -38,6 +38,8 @@ resource "helm_release" "argocd" {
           type = var.service_type
         }
 
+        resources = var.server_resources
+
         ingress = {
           enabled = var.create_ingress
           hosts = [
@@ -57,6 +59,14 @@ resource "helm_release" "argocd" {
             ]
           }]
         }
+      }
+
+      repoServer = {
+        resources = var.repo_server_resources
+      }
+
+      controller = {
+        resources = var.application_controller_resources
       }
     })
   ]

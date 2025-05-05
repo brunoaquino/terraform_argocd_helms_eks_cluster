@@ -49,4 +49,9 @@ module "argocd" {
 
   # Repositories
   repositories = var.repositories
+
+  # Recursos
+  server_resources                 = var.server_resources
+  repo_server_resources            = var.repo_server_resources
+  application_controller_resources = var.application_controller_resources
 }

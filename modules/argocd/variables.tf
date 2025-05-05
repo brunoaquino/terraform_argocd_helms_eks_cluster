@@ -112,3 +112,76 @@ variable "rbac_policy_default" {
   type        = string
   default     = "role:readonly"
 }
+
+# Recursos e limites
+variable "server_resources" {
+  description = "Recursos para o servidor ArgoCD"
+  type = object({
+    limits = object({
+      cpu    = string
+      memory = string
+    })
+    requests = object({
+      cpu    = string
+      memory = string
+    })
+  })
+  default = {
+    limits = {
+      cpu    = "300m"
+      memory = "512Mi"
+    }
+    requests = {
+      cpu    = "100m"
+      memory = "256Mi"
+    }
+  }
+}
+
+variable "repo_server_resources" {
+  description = "Recursos para o repo-server do ArgoCD"
+  type = object({
+    limits = object({
+      cpu    = string
+      memory = string
+    })
+    requests = object({
+      cpu    = string
+      memory = string
+    })
+  })
+  default = {
+    limits = {
+      cpu    = "300m"
+      memory = "512Mi"
+    }
+    requests = {
+      cpu    = "100m"
+      memory = "256Mi"
+    }
+  }
+}
+
+variable "application_controller_resources" {
+  description = "Recursos para o application-controller do ArgoCD"
+  type = object({
+    limits = object({
+      cpu    = string
+      memory = string
+    })
+    requests = object({
+      cpu    = string
+      memory = string
+    })
+  })
+  default = {
+    limits = {
+      cpu    = "500m"
+      memory = "1Gi"
+    }
+    requests = {
+      cpu    = "250m"
+      memory = "512Mi"
+    }
+  }
+}
